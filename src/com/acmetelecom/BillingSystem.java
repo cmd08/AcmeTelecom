@@ -37,7 +37,7 @@ public class BillingSystem {
             }
         }
 
-        List<Call> calls = new ArrayList<Call>();
+        List<RealCall> realCalls = new ArrayList<RealCall>();
 
         CallEvent start = null;
         for (CallEvent event : customerEvents) {
@@ -45,7 +45,7 @@ public class BillingSystem {
                 start = event;
             }
             if (event instanceof CallEnd && start != null) {
-                calls.add(new Call(start, event));
+                realCalls.add(new RealCall(start, event));
                 start = null;
             }
         }
@@ -53,47 +53,47 @@ public class BillingSystem {
         BigDecimal totalBill = new BigDecimal(0);
         List<LineItem> items = new ArrayList<LineItem>();
 
-        for (Call call : calls) {
+        for (RealCall realCall : realCalls) {
 
             Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
 
             BigDecimal cost;
 
             DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
-            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
+            if (peakPeriod.offPeak(realCall.startTime()) && peakPeriod.offPeak(realCall.endTime()) && realCall.durationSeconds() < 12 * 60 * 60) {
+                cost = new BigDecimal(realCall.durationSeconds()).multiply(tariff.offPeakRate());
             } else {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
+                cost = new BigDecimal(realCall.durationSeconds()).multiply(tariff.peakRate());
             }
 
             cost = cost.setScale(0, RoundingMode.HALF_UP);
             BigDecimal callCost = cost;
             totalBill = totalBill.add(callCost);
-            items.add(new LineItem(call, callCost));
+            items.add(new LineItem(realCall, callCost));
         }
 
         new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
     }
 
     static class LineItem {
-        private Call call;
+        private RealCall realCall;
         private BigDecimal callCost;
 
-        public LineItem(Call call, BigDecimal callCost) {
-            this.call = call;
+        public LineItem(RealCall realCall, BigDecimal callCost) {
+            this.realCall = realCall;
             this.callCost = callCost;
         }
 
         public String date() {
-            return call.date();
+            return realCall.date();
         }
 
         public String callee() {
-            return call.callee();
+            return realCall.callee();
         }
 
         public String durationMinutes() {
-            return "" + call.durationSeconds() / 60 + ":" + String.format("%02d", call.durationSeconds() % 60);
+            return "" + realCall.durationSeconds() / 60 + ":" + String.format("%02d", realCall.durationSeconds() % 60);
         }
 
         public BigDecimal cost() {

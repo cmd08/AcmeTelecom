@@ -4,11 +4,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Call {
+public class FakeCall implements AbstractCall {
     private CallEvent start;
     private CallEvent end;
 
-    public Call(CallEvent start, CallEvent end) {
+    public FakeCall(CallEvent start, CallEvent end) {
         this.start = start;
         this.end = end;
     }
