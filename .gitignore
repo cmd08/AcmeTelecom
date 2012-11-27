@@ -4,5 +4,5 @@ output.html
 #apple shit
 .DS_store
 
-.idea/
+.idea
 *.iml
