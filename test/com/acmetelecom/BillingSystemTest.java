@@ -1,7 +1,11 @@
 package com.acmetelecom;
 
-public class Runner {
-    public static void main(String[] args) throws Exception {
+import org.junit.Test;
+
+public class BillingSystemTest {
+
+	@Test
+	public void runnerTest() throws Exception {
         System.out.println("Running...");
         BillingSystem billingSystem = new BillingSystem();
         billingSystem.callInitiated("447722113434", "447766511332");
@@ -18,4 +22,5 @@ public class Runner {
     private static void sleepSeconds(int n) throws InterruptedException {
         Thread.sleep(n * 1000);
     }
+
 }
