@@ -13,11 +13,11 @@ public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
 
-    public void callInitiated(String caller, String callee) {
+    public void callInitiated(CallParticipant caller, CallParticipant callee) {
         callLog.add(new CallStart(caller, callee));
     }
 
-    public void callCompleted(String caller, String callee) {
+    public void callCompleted(CallParticipant caller, CallParticipant callee) {
         callLog.add(new CallEnd(caller, callee));
     }
 
@@ -88,7 +88,7 @@ public class BillingSystem {
             return call.date();
         }
 
-        public String callee() {
+        public CallParticipant callee() {
             return call.callee();
         }
 

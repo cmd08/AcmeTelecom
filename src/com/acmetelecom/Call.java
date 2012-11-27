@@ -13,7 +13,7 @@ public class Call {
         this.end = end;
     }
 
-    public String callee() {
+    public CallParticipant callee() {
         return start.getCallee();
     }
 
