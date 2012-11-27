@@ -5,8 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public class Call {
     private CallEvent start;
@@ -26,14 +25,14 @@ public class Call {
     }
 
     public String date() {
-        return SimpleDateFormat.getInstance().format(new Date(start.time()));
+        return SimpleDateFormat.getInstance().format(new DateTime(start.time()));
     }
 
-    public Date startTime() {
-        return new Date(start.time());
+    public DateTime startTime() {
+        return new DateTime(start.time());
     }
 
-    public Date endTime() {
-        return new Date(end.time());
+    public DateTime endTime() {
+        return new DateTime(end.time());
     }
 }
