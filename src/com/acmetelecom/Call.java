@@ -1,11 +1,8 @@
 package com.acmetelecom;
 
-import javax.swing.text.DateFormatter;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class Call {
     private CallEvent start;
@@ -16,7 +13,7 @@ public class Call {
         this.end = end;
     }
 
-    public String callee() {
+    public CallParticipant callee() {
         return start.getCallee();
     }
 
@@ -25,7 +22,9 @@ public class Call {
     }
 
     public String date() {
-        return new DateTime(start.time()).toString();
+        DateTimeFormatter dtf = DateTimeFormat.mediumDateTime();
+        DateTime date = new DateTime(start.time());
+        return dtf.print(date);
     }
 
     public DateTime startTime() {

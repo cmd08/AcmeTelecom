@@ -1,6 +1,7 @@
-package test.com.acmetelecom.billingdsl;
+package com.acmetelecom.billingdsl;
 
 import com.acmetelecom.BillingSystem;
+import com.acmetelecom.CallParticipant;
 
 public class BillingSystemTestContext implements Caller, Callee, HasStartTime, HasDuration {
 	private BillingSystem billingSystem;
@@ -9,11 +10,11 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 		billingSystem = new BillingSystem();
 	}
 
-	public void callInitiated(String caller, String callee) {
+	public void callInitiated(CallParticipant caller, CallParticipant callee) {
 		billingSystem.callInitiated(caller, callee);
 	}
 
-	public void callCompleted(String caller, String callee) {
+	public void callCompleted(CallParticipant caller, CallParticipant callee) {
 		billingSystem.callCompleted(caller, callee);
 	}
 
@@ -21,18 +22,18 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 		billingSystem.createCustomerBills();
 	}
 	
-	String savedCaller;
-	String savedCallee;
+	CallParticipant savedCaller;
+	CallParticipant savedCallee;
 	String savedTime;
 
 	@Override
-	public Callee newCallFrom(String caller) {
+	public Callee newCallFrom(CallParticipant caller) {
 		savedCaller = caller;
 		return this;
 	}
 	
 	@Override
-	public HasStartTime callTo(String callee) {
+	public HasStartTime callTo(CallParticipant callee) {
 		savedCallee = callee;
 		return this;
 	}

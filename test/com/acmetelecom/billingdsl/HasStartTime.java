@@ -1,4 +1,4 @@
-package test.com.acmetelecom.billingdsl;
+package com.acmetelecom.billingdsl;
 
 public interface HasStartTime {
 
