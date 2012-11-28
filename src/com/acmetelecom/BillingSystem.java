@@ -32,7 +32,7 @@ public class BillingSystem {
     private void createBillFor(Customer customer) {
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
         for (CallEvent callEvent : callLog) {
-            if (callEvent.getCaller().equals(customer.getPhoneNumber())) {
+            if (callEvent.getCaller().getName().equals(customer.getPhoneNumber())) {
                 customerEvents.add(callEvent);
             }
         }
