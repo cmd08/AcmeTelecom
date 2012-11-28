@@ -6,6 +6,6 @@ public interface Caller {
 
 	Callee newCallFrom(CallParticipant callee);
 	
-	public void createCustomerBills();
+	public String createCustomerBills();
 
 }

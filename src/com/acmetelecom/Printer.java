@@ -7,4 +7,6 @@ public interface Printer {
     void printItem(String time, String callee, String duration, String cost);
 
     void printTotal(String total);
+    
+    String getAndClearOutput();
 }

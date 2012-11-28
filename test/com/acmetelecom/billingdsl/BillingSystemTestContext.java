@@ -2,6 +2,7 @@ package com.acmetelecom.billingdsl;
 
 import com.acmetelecom.BillingSystem;
 import com.acmetelecom.CallParticipant;
+import com.acmetelecom.HtmlPrinter;
 
 public class BillingSystemTestContext implements Caller, Callee, HasStartTime, HasDuration {
 	private BillingSystem billingSystem;
@@ -18,8 +19,9 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 		billingSystem.callCompleted(caller, callee);
 	}
 
-	public void createCustomerBills() {
+	public String createCustomerBills() {
 		billingSystem.createCustomerBills();
+		return HtmlPrinter.getInstance().getAndClearOutput();
 	}
 	
 	CallParticipant savedCaller;
