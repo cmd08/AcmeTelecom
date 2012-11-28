@@ -1,27 +1,27 @@
 package com.acmetelecom;
 
 public class CallParticipant {
-	private final String name;
+	private final String number;
 	
-	private CallParticipant(String name){
-		this.name = name;
+	private CallParticipant(String number){
+		this.number = number;
 	}
 	
-	public static CallParticipant newCaller(String name){
-		return new CallParticipant(name);
+	public static CallParticipant newCaller(String number){
+		return new CallParticipant(number);
 	}
 	
-	public static CallParticipant newCallee(String name){
-		return new CallParticipant(name);
+	public static CallParticipant newCallee(String number){
+		return new CallParticipant(number);
 	}
 	
-	public String getName(){
-		return this.name;
+	public String getNumber(){
+		return this.number;
 	}
 	
 	@Override
 	public String toString(){
-		return this.name;
+		return this.number;
 	}
 
 }

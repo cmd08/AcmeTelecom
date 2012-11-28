@@ -28,17 +28,19 @@ public class BillingSystemTest {
 	}
 	
 	@Test
-	public void  runnerTest() throws Exception {
+	public void runnerTest() throws Exception {
 		String outputFileName = "runnerOutput.html";
+		
+		long startTime = 1350000000000l;
 		
 		CallParticipant a = CallParticipant.newCaller("447722113434");
 		CallParticipant b = CallParticipant.newCallee("447766511332");
 		CallParticipant c = CallParticipant.newCallee("447711111111");
 		CallParticipant d = CallParticipant.newCaller("447777765432");
 		
-		billingContext.newCallFrom(a).callTo(b).startAtTimeNow().withDuration(0,0,1)
-		.newCallFrom(a).callTo(c).startAtTimeNow().withDuration(0,0,2)
-		.newCallFrom(d).callTo(c).startAtTimeNow().withDuration(0,0,3);
+		billingContext.newCallFrom(a).callTo(b).startAtTime(startTime).withDuration(0,0,20)
+		.newCallFrom(a).callTo(c).startAtTime(startTime+20000).withDuration(0,0,30)
+		.newCallFrom(d).callTo(c).startAtTime(startTime+50000).endAtTime(startTime+110000);
        
 		String output = billingContext.createCustomerBills();
 		
@@ -67,7 +69,6 @@ public class BillingSystemTest {
 				break;
 			}
 		}
-		
 	}
 
 	private void printStringToFile(String output, String fileName) throws IOException {

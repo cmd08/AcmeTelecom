@@ -22,7 +22,7 @@ public class CallParticipantTest {
 	public void testGetName() {
 		String s = "447919973491";
 		CallParticipant c = CallParticipant.newCallee(s);
-		assert s.equals(c.getName());
+		assert s.equals(c.getNumber());
 	}
 
 }

@@ -12,13 +12,13 @@ import java.util.*;
 public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
-
-    public void callInitiated(CallParticipant caller, CallParticipant callee) {
-        callLog.add(new CallStart(caller, callee));
+    
+    public void callInitiated(CallEvent callstart) {
+    	callLog.add(callstart);
     }
-
-    public void callCompleted(CallParticipant caller, CallParticipant callee) {
-        callLog.add(new CallEnd(caller, callee));
+    
+    public void callCompleted(CallEvent callend) {
+    	callLog.add(callend);
     }
 
     public void createCustomerBills() {
@@ -32,8 +32,8 @@ public class BillingSystem {
     private void createBillFor(Customer customer) {
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
         for (CallEvent callEvent : callLog) {
-            if (callEvent.getCaller().getName().equals(customer.getPhoneNumber())) {
-                customerEvents.add(callEvent);
+            if (callEvent.getCaller().getNumber().equals(customer.getPhoneNumber())) {
+            	customerEvents.add(callEvent);
             }
         }
 
