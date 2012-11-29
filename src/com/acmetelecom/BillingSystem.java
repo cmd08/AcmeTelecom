@@ -13,11 +13,11 @@ public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
     
-    public void callInitiated(CallEvent callstart) {
+    public void callInitiated(CallStart callstart) {
     	callLog.add(callstart);
     }
     
-    public void callCompleted(CallEvent callend) {
+    public void callCompleted(CallEnd callend) {
     	callLog.add(callend);
     }
 

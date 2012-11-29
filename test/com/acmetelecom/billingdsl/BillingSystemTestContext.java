@@ -35,12 +35,12 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 	}
 	
 	@Override
-	public Caller withDuration(final int hours,final int minutes,final int seconds) {
+	public Caller withDuration(int hours, int minutes, int seconds) {
 		
 		long durationMillis = (60*60*hours + 60*minutes + seconds) * 1000;
-		long endAtTime = savedStartTime + durationMillis;
+		long endTime = savedStartTime + durationMillis;
 		
-		return endAtTime(endAtTime);
+		return endAtTime(endTime);
 	}
 
 	@Override
