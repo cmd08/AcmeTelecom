@@ -55,19 +55,8 @@ public class BillingSystem {
 
         for (Call call : calls) {
 
-            Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
-
-            BigDecimal cost;
-
-            DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
-            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
-            } else {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
-            }
-
-            cost = cost.setScale(0, RoundingMode.HALF_UP);
-            BigDecimal callCost = cost;
+        	BigDecimal callCost = calculateCallCost(call, customer);
+        	
             totalBill = totalBill.add(callCost);
             items.add(new LineItem(call, callCost));
         }
@@ -75,7 +64,24 @@ public class BillingSystem {
         new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
     }
 
-    static class LineItem {
+    private static BigDecimal calculateCallCost(Call call, Customer customer) {
+        Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
+
+        BigDecimal cost;
+        
+        if (PeakPeriod.isOffPeak(call.startTime()) && PeakPeriod.isOffPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
+            cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
+        } else {
+            cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
+        }
+
+        cost = cost.setScale(0, RoundingMode.HALF_UP);
+        BigDecimal callCost = cost;
+
+        return callCost;
+	}
+
+	static class LineItem {
         private Call call;
         private BigDecimal callCost;
 
