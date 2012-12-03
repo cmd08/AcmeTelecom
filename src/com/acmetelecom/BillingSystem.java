@@ -9,8 +9,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
+import org.joda.time.LocalTime;
+
 public class BillingSystem {
 
+	private PeakPeriod peakPeriod = PeakPeriod.DEFAULT_PEAK_PERIOD;
+	
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
     
     public void callInitiated(CallStart callstart) {
@@ -52,10 +56,12 @@ public class BillingSystem {
 
         BigDecimal totalBill = new BigDecimal(0);
         List<LineItem> items = new ArrayList<LineItem>();
+        
+        Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
 
         for (Call call : calls) {
 
-        	BigDecimal callCost = calculateCallCost(call, customer);
+        	BigDecimal callCost = calculateCallCost(call, tariff);
         	
             totalBill = totalBill.add(callCost);
             items.add(new LineItem(call, callCost));
@@ -64,21 +70,46 @@ public class BillingSystem {
         new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
     }
 
-    private static BigDecimal calculateCallCost(Call call, Customer customer) {
-        Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
+    private BigDecimal calculateCallCost(Call call, Tariff tariff) {
 
-        BigDecimal cost;
+        BigDecimal cost = new BigDecimal(0);
         
-        if (PeakPeriod.isOffPeak(call.startTime()) && PeakPeriod.isOffPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
-            cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
-        } else {
-            cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
+        LocalTime currentTime = call.startTime().toLocalTime();
+        
+        int timeLeft = call.durationSeconds();
+        
+        while (timeLeft > 0) {
+        	BigDecimal portionCost = null;
+        	//If off peak
+            if (peakPeriod.isOffPeak(currentTime)) {
+            	int maxDurationInOffPeak = peakPeriod.getSecondsBeforeNextPeakStartTime(currentTime);
+            	if (timeLeft < maxDurationInOffPeak) {
+            		portionCost = new BigDecimal(timeLeft).multiply(tariff.offPeakRate());
+            		timeLeft = 0;
+            	}
+            	else {
+            		portionCost = new BigDecimal(maxDurationInOffPeak).multiply(tariff.offPeakRate());
+            		timeLeft -= maxDurationInOffPeak;
+            		currentTime = currentTime.plusSeconds(maxDurationInOffPeak);
+            	}
+            }
+            //If peak
+            else {
+            	int maxDurationInPeak = peakPeriod.getSecondsUntilPeakEndTime(currentTime);
+            	if (timeLeft < maxDurationInPeak) {
+            		portionCost = new BigDecimal(timeLeft).multiply(tariff.peakRate());
+            		timeLeft = 0;
+            	}
+            	else {
+            		portionCost = new BigDecimal(maxDurationInPeak).multiply(tariff.peakRate());
+            		timeLeft -= maxDurationInPeak;
+            		currentTime = currentTime.plusSeconds(maxDurationInPeak);
+            	}
+            }
+            cost = cost.add(portionCost);
         }
-
-        cost = cost.setScale(0, RoundingMode.HALF_UP);
-        BigDecimal callCost = cost;
-
-        return callCost;
+        
+        return cost.setScale(0, RoundingMode.HALF_UP);
 	}
 
 	static class LineItem {
