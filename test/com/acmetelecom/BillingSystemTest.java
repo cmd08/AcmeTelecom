@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,25 +29,31 @@ public class BillingSystemTest {
 	}
 	
 	@Test
-	public void runnerTest() throws Exception {
-		String outputFileName = "runnerOutput.html";
+	public void basicTest() throws Exception {
+		String testOutputName = "runnerOutput.html";
 		
-		long startTime = 1350000000000l;
+		DateTime startTimeCall1 = new DateTime(2012,12,03,12,01,0);
+		DateTime startTimeCall2 = new DateTime(2012,12,03,12,02,0);
+		DateTime startTimeCall3 = new DateTime(2012,12,03,12,03,0);
+		
+		DateTime endTimeCall1 = startTimeCall3.plusMinutes(3);
+		DateTime endTimeCall2 = startTimeCall3.plusMinutes(2);
+		DateTime endTimeCall3 = startTimeCall3.plusMinutes(1);
 		
 		CallParticipant a = CallParticipant.newCaller("447722113434");
 		CallParticipant b = CallParticipant.newCallee("447766511332");
 		CallParticipant c = CallParticipant.newCallee("447711111111");
 		CallParticipant d = CallParticipant.newCaller("447777765432");
 		
-		billingContext.newCallFrom(a).callTo(b).startAtTime(startTime).withDuration(0,0,20)
-		.newCallFrom(a).callTo(c).startAtTime(startTime+20000).withDuration(0,0,30)
-		.newCallFrom(d).callTo(c).startAtTime(startTime+50000).endAtTime(startTime+110000);
+		billingContext.newCallFrom(a).callTo(b).startAtTime(startTimeCall1).endAtTime(endTimeCall1)
+		.newCallFrom(a).callTo(c).startAtTime(startTimeCall2).endAtTime(endTimeCall2)
+		.newCallFrom(d).callTo(c).startAtTime(startTimeCall3).endAtTime(endTimeCall3);
        
 		String output = billingContext.createCustomerBills();
 		
-		printStringToFile(output,outputFileName);
+		printStringToFile(output,testOutputName);
 		
-		assertTestAndResourceFilesIdentical(outputFileName);
+		assertTestAndResourceFilesIdentical(testOutputName);
 	}
 	
 	private static void assertTestAndResourceFilesIdentical(String outputFileName) throws IOException {
@@ -71,7 +78,7 @@ public class BillingSystemTest {
 		}
 	}
 
-	private void printStringToFile(String output, String fileName) throws IOException {
+	private static void printStringToFile(String output, String fileName) throws IOException {
 		
 		File dir = new File(testOutputDir);
 		if (dir.exists() == false) {

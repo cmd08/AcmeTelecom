@@ -1,8 +1,10 @@
 package com.acmetelecom.billingdsl;
 
+import org.joda.time.DateTime;
+
 public interface HasDuration {
 
-	Caller withDuration(int hours, int minutes, int seconds);
-
 	Caller endAtTime(long endTime);
+	
+	Caller endAtTime(DateTime endTime);
 }

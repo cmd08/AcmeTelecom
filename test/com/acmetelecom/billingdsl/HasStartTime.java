@@ -1,9 +1,11 @@
 package com.acmetelecom.billingdsl;
 
+import org.joda.time.DateTime;
+
 public interface HasStartTime {
 
-	HasDuration startAtTimeNow();
-	
 	HasDuration startAtTime(long time);
+	
+	HasDuration startAtTime(DateTime time);
 
 }

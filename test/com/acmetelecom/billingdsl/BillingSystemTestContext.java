@@ -9,6 +9,7 @@ import com.acmetelecom.HtmlPrinter;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.joda.time.DateTime;
 
 public class BillingSystemTestContext implements Caller, Callee, HasStartTime, HasDuration {
 	
@@ -35,29 +36,14 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 	}
 	
 	@Override
-	public Caller withDuration(int hours, int minutes, int seconds) {
-		
-		long durationMillis = (60*60*hours + 60*minutes + seconds) * 1000;
-		long endTime = savedStartTime + durationMillis;
-		
-		return endAtTime(endTime);
-	}
-
-	@Override
-	public HasDuration startAtTimeNow() {
-		savedStartTime = System.currentTimeMillis();
-		return this;
-	}
-    
-	public String createCustomerBills() {
-		billingSystem.createCustomerBills();
-		return HtmlPrinter.getInstance().getAndClearOutput();
-	}
-
-	@Override
 	public HasDuration startAtTime(long time) {
 		savedStartTime = time;
 		return this;
+	}
+	
+	@Override
+	public HasDuration startAtTime(DateTime time) {
+		return startAtTime(time.getMillis());
 	}
 
 	@Override
@@ -105,5 +91,15 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 		billingSystem.callCompleted(mockCallEnd);
 		
 		return this;
+	}
+
+	@Override
+	public Caller endAtTime(DateTime endTime) {
+		return endAtTime(endTime.getMillis());
+	}
+    
+	public String createCustomerBills() {
+		billingSystem.createCustomerBills();
+		return HtmlPrinter.getInstance().getAndClearOutput();
 	}
 }
