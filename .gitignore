@@ -1,6 +1,7 @@
 bin/
 testOutput/
 output.html
+out/
 
 #apple shit
 .DS_store
