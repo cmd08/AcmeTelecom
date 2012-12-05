@@ -4,11 +4,8 @@ import org.joda.time.DateTime;
 
 public class TestFixture {
 	private String number;
-	private String tarif;
 	private DateTime start;
-	private DateTime end;
 	private int duration;
-	private String rate;
 	private int cost;
 	
 	public void setNumber(String num){
@@ -23,20 +20,8 @@ public class TestFixture {
 		start = st;
 	}
 	
-	public void setEnd(DateTime en){
-		end = en;
-	}
-	
-	public int duration(){
-		return SystemUnderTest.getCallDuration(start, end); // need to get the real function here
-	}
-	
-	public String rate(){
-		return SystemUnderTest.getCallRate(start, end); // get the real function to workout tarif here
-	}
-	
 	public int cost(){
-		return SystemUnderTest.getCallCost(start, end, rate); //get real function here
+		return SystemUnderTest.getCost(number, start, duration); //get real function here
 	}
 	
 }
