@@ -102,4 +102,9 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 		billingSystem.createCustomerBills();
 		return HtmlPrinter.getInstance().getAndClearOutput();
 	}
+	
+	public int getCost(){
+		billingSystem.LineItem dave = new billingSystem.LineItem;
+	}
+	
 }

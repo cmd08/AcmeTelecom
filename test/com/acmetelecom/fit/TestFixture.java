@@ -12,12 +12,12 @@ public class TestFixture {
 		number = num;
 	}
 	
-	public void setTarif(String tar){
-		tarif = tar;
-	}
-	
 	public void setStart(DateTime st){
 		start = st;
+	}
+	
+	public void setDuration(int dur){
+		duration = dur;
 	}
 	
 	public int cost(){
