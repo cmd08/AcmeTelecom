@@ -21,7 +21,7 @@ public class TestFixture {
 	}
 	
 	public int cost(){
-		return SystemUnderTest.getCost(number, start, duration); //get real function here
+		return SystemUnderTest.getCost(); //get real function here
 	}
 	
 }
