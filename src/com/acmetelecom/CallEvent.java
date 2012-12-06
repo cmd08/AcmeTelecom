@@ -8,18 +8,18 @@ public class CallEvent implements CallEventInterface {
     final private long time;
     final private CallType callType;
 
-    public CallEvent(CallParticipant caller, CallParticipant callee, long timeStamp, CallType callType) {
+    private CallEvent(CallParticipant caller, CallParticipant callee, long timeStamp, CallType callType) {
         this.caller = caller;
         this.callee = callee;
         this.time = timeStamp;
         this.callType = callType;
     }
     
-    public static CallEvent callStart(CallParticipant caller, CallParticipant callee) {
+    public static CallEvent newCallStart(CallParticipant caller, CallParticipant callee) {
     	return new CallEvent(caller, callee, DateTimeUtils.currentTimeMillis(), CallType.CALL_START);
     }
     
-    public static CallEvent callEnd(CallParticipant caller, CallParticipant callee) {
+    public static CallEvent newCallEnd(CallParticipant caller, CallParticipant callee) {
     	return new CallEvent(caller, callee, DateTimeUtils.currentTimeMillis(), CallType.CALL_END);
     }
 
