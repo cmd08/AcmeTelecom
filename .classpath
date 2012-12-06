@@ -14,5 +14,7 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/fitnesse.jar"/>
+	<classpathentry kind="lib" path="/Users/cmd08/Documents/workspace/AcmeTelecom/lib/fit/fitLibraryRunner-20070110-src.jar"/>
+	<classpathentry kind="lib" path="/Users/cmd08/Documents/workspace/AcmeTelecom/lib/fit/fitlibraryRunner-20070110.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,6 +2,7 @@ bin/
 testOutput/
 output.html
 out/
+reports/
 report/
 build/
 
