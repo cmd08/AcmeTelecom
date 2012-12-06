@@ -18,20 +18,20 @@ public class Call {
     }
 
     public int durationSeconds() {
-        return (int) (((end.time() - start.time()) / 1000));
+        return (int) (((end.getTime() - start.getTime()) / 1000));
     }
 
     public String date() {
         DateTimeFormatter dtf = DateTimeFormat.mediumDateTime();
-        DateTime date = new DateTime(start.time());
+        DateTime date = new DateTime(start.getTime());
         return dtf.print(date);
     }
 
     public DateTime startTime() {
-        return new DateTime(start.time());
+        return new DateTime(start.getTime());
     }
 
     public DateTime endTime() {
-        return new DateTime(end.time());
+        return new DateTime(end.getTime());
     }
 }

@@ -2,6 +2,7 @@ package com.acmetelecom.billingdsl;
 
 import com.acmetelecom.BillingSystem;
 import com.acmetelecom.CallEnd;
+import com.acmetelecom.CallEvent.CallType;
 import com.acmetelecom.CallParticipant;
 import com.acmetelecom.CallStart;
 import com.acmetelecom.HtmlPrinter;
@@ -73,8 +74,11 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 				allowing(mockCallStart).getCallee();
 				will(returnValue(savedMockCallee));
 				
-				allowing(mockCallStart).time();
+				allowing(mockCallStart).getTime();
 				will(returnValue(savedMockStartTime));
+				
+				allowing(mockCallStart).getType();
+				will(returnValue(CallType.CALL_START));
 				
 				allowing(mockCallEnd).getCaller();
 				will(returnValue(savedMockCaller));
@@ -82,8 +86,11 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 				allowing(mockCallEnd).getCallee();
 				will(returnValue(savedMockCallee));
 				
-				allowing(mockCallEnd).time();
+				allowing(mockCallEnd).getTime();
 				will(returnValue(savedMockEndTime));
+				
+				allowing(mockCallEnd).getType();
+				will(returnValue(CallType.CALL_END));
 			}
 		});
 		

@@ -1,5 +1,6 @@
 package com.acmetelecom;
 
+import com.acmetelecom.CallEvent.CallType;
 import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.customer.Customer;
@@ -45,10 +46,10 @@ public class BillingSystem {
 
         CallEvent start = null;
         for (CallEvent event : customerEvents) {
-            if (event instanceof CallStart) {
+            if (event.getType() == CallType.CALL_START) {
                 start = event;
             }
-            if (event instanceof CallEnd && start != null) {
+            if (event.getType() == CallType.CALL_END && start != null) {
                 calls.add(new Call(start, event));
                 start = null;
             }
@@ -111,6 +112,8 @@ public class BillingSystem {
         
         return cost.setScale(0, RoundingMode.HALF_UP);
 	}
+    
+    
 
 	static class LineItem {
         private Call call;
