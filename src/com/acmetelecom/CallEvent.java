@@ -1,14 +1,26 @@
 package com.acmetelecom;
 
-public abstract class CallEvent {
-    private CallParticipant caller;
-    private CallParticipant callee;
-    private long time;
+import org.joda.time.DateTimeUtils;
 
-    public CallEvent(CallParticipant caller, CallParticipant callee, long timeStamp) {
+public class CallEvent implements CallEventInterface {
+    final private CallParticipant caller;
+    final private CallParticipant callee;
+    final private long time;
+    final private CallType callType;
+
+    private CallEvent(CallParticipant caller, CallParticipant callee, long timeStamp, CallType callType) {
         this.caller = caller;
         this.callee = callee;
         this.time = timeStamp;
+        this.callType = callType;
+    }
+    
+    public static CallEvent newCallStart(CallParticipant caller, CallParticipant callee) {
+    	return new CallEvent(caller, callee, DateTimeUtils.currentTimeMillis(), CallType.CALL_START);
+    }
+    
+    public static CallEvent newCallEnd(CallParticipant caller, CallParticipant callee) {
+    	return new CallEvent(caller, callee, DateTimeUtils.currentTimeMillis(), CallType.CALL_END);
     }
 
     public CallParticipant getCaller() {
@@ -19,7 +31,11 @@ public abstract class CallEvent {
         return callee;
     }
 
-    public long time() {
+    public long getTime() {
         return time;
+    }
+    
+    public CallType getType() {
+        return callType;
     }
 }

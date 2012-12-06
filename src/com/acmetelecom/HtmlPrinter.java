@@ -70,7 +70,7 @@ public class HtmlPrinter implements Printer {
     
     private void printLineToBuffer(String s) {
     	buffer.append(s + "\n");
-    	System.out.println(s);
+//    	System.out.println(s);
     }
 
 	@Override
