@@ -5,10 +5,10 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class Call {
-    private CallEvent start;
-    private CallEvent end;
+    private CallEventInterface start;
+    private CallEventInterface end;
 
-    public Call(CallEvent start, CallEvent end) {
+    public Call(CallEventInterface start, CallEventInterface end) {
         this.start = start;
         this.end = end;
     }

@@ -1,28 +1,29 @@
 package com.acmetelecom;
 
-import com.acmetelecom.CallEvent.CallType;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joda.time.LocalTime;
+
+import com.acmetelecom.CallEventInterface.CallType;
 import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.Tariff;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
-
-import org.joda.time.LocalTime;
-
 public class BillingSystem {
 
 	private PeakPeriod peakPeriod = PeakPeriod.DEFAULT_PEAK_PERIOD;
 	
-    private List<CallEvent> callLog = new ArrayList<CallEvent>();
+    private List<CallEventInterface> callLog = new ArrayList<CallEventInterface>();
     
-    public void callInitiated(CallStart callstart) {
-    	callLog.add(callstart);
+    public void callInitiated(CallEventInterface mockCallStart) {
+    	callLog.add(mockCallStart);
     }
     
-    public void callCompleted(CallEnd callend) {
+    public void callCompleted(CallEventInterface callend) {
     	callLog.add(callend);
     }
 
@@ -35,8 +36,8 @@ public class BillingSystem {
     }
 
     private void createBillFor(Customer customer) {
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        for (CallEvent callEvent : callLog) {
+        List<CallEventInterface> customerEvents = new ArrayList<CallEventInterface>();
+        for (CallEventInterface callEvent : callLog) {
             if (callEvent.getCaller().getNumber().equals(customer.getPhoneNumber())) {
             	customerEvents.add(callEvent);
             }
@@ -44,8 +45,8 @@ public class BillingSystem {
 
         List<Call> calls = new ArrayList<Call>();
 
-        CallEvent start = null;
-        for (CallEvent event : customerEvents) {
+        CallEventInterface start = null;
+        for (CallEventInterface event : customerEvents) {
             if (event.getType() == CallType.CALL_START) {
                 start = event;
             }
@@ -112,8 +113,6 @@ public class BillingSystem {
         
         return cost.setScale(0, RoundingMode.HALF_UP);
 	}
-    
-    
 
 	static class LineItem {
         private Call call;

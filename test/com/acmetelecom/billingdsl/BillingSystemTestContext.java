@@ -1,16 +1,14 @@
 package com.acmetelecom.billingdsl;
 
-import com.acmetelecom.BillingSystem;
-import com.acmetelecom.CallEnd;
-import com.acmetelecom.CallEvent.CallType;
-import com.acmetelecom.CallParticipant;
-import com.acmetelecom.CallStart;
-import com.acmetelecom.HtmlPrinter;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.joda.time.DateTime;
+
+import com.acmetelecom.BillingSystem;
+import com.acmetelecom.CallEventInterface;
+import com.acmetelecom.CallEventInterface.CallType;
+import com.acmetelecom.CallParticipant;
+import com.acmetelecom.HtmlPrinter;
 
 public class BillingSystemTestContext implements Caller, Callee, HasStartTime, HasDuration {
 	
@@ -50,10 +48,7 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 	@Override
 	public Caller endAtTime(long endTime) {
 		
-		//Allows jmock to mock classes. Required to get instanceof working with mocks.
-		Mockery context = new Mockery() {{
-			setImposteriser(ClassImposteriser.INSTANCE);
-		}};
+		Mockery context = new Mockery();
 		
 		final CallParticipant savedMockCaller = savedCaller;
 		final CallParticipant savedMockCallee = savedCallee;
@@ -62,9 +57,9 @@ public class BillingSystemTestContext implements Caller, Callee, HasStartTime, H
 		
 		final long savedMockEndTime = endTime;
 				
-		final CallStart mockCallStart = context.mock(CallStart.class);
+		final CallEventInterface mockCallStart = context.mock(CallEventInterface.class,"CallStart");
 		
-		final CallEnd mockCallEnd = context.mock(CallEnd.class);
+		final CallEventInterface mockCallEnd = context.mock(CallEventInterface.class, "CallEnd");
 		
 		context.checking(new Expectations() {
 			{	
