@@ -1,17 +1,12 @@
 bin/
 testOutput/
 output.html
-<<<<<<< HEAD
-=======
 out/
->>>>>>> origin/master
+report/
+build/
 
 #apple shit
 .DS_store
 
 .idea
 *.iml
-<<<<<<< HEAD
-lib/
-=======
->>>>>>> origin/master
