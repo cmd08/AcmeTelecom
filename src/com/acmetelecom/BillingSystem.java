@@ -54,7 +54,7 @@ public class BillingSystem {
                 try {
                 	calls.add(new Call(start, event));
                 } catch (Exception e){
-                	 // do something
+                	 System.out.println("Invalid start/end time - start is after end");
                 }
                 start = null;
             }

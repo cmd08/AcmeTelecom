@@ -9,6 +9,7 @@ class Call {
     private CallEventInterface end;
 
     public Call(CallEventInterface start, CallEventInterface end) throws Exception {
+    	// Make sure start time is before end time of call
     	if(end.getTime() < start.getTime()) {
     		throw new Exception();
     	} else {
