@@ -1,5 +1,7 @@
 
 
+import com.acmetelecom.HtmlPrinter;
+import com.acmetelecom.Printer;
 import com.acmetelecom.billingdsl.BillingSystemTestContext;
 import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CustomerDatabase;
@@ -15,5 +17,7 @@ public class SystemUnderTest {
 	public static final CustomerDatabase customerDatabase = CentralCustomerDatabase.getInstance();
 	
 	public static final BillingSystemTestContext billingContext = new BillingSystemTestContext();
+	
+	public static final Printer printer = HtmlPrinter.getInstance();
 
 }

@@ -27,7 +27,7 @@ public class TheBillShows extends RowFixture {
 		
 		//We need a fake printer to pull the unformatted data from...
 		List<Row> rows = new ArrayList<Row>();
-		for (String line : SystemUnderTest.printer.output().split("\n")) {
+		for (String line : SystemUnderTest.printer.getAndClearOutput().split("\n")) {
 			rows.add(new Row(rows.size() + 1, line));
 		}
 		return rows.toArray();

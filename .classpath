@@ -2,19 +2,19 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="lib/external.jar"/>
-	<classpathentry kind="lib" path="lib/joda-time-2.1.jar">
+	<classpathentry exported="true" kind="lib" path="lib/external.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joda-time-2.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/AcmeTelecom/lib/joda-time-2.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/hamcrest-library-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/jmock-2.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hamcrest-core-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hamcrest-library-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jmock-2.5.1.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/fitnesse.jar"/>
-	<classpathentry kind="lib" path="/Users/cmd08/Documents/workspace/AcmeTelecom/lib/fit/fitLibraryRunner-20070110-src.jar"/>
-	<classpathentry kind="lib" path="/Users/cmd08/Documents/workspace/AcmeTelecom/lib/fit/fitlibraryRunner-20070110.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/fitnesse.jar"/>
+	<classpathentry kind="lib" path="F:/Documents/GitHub/AcmeTelecom/lib/fit/fitLibraryRunner-20070110-src.jar"/>
+	<classpathentry kind="lib" path="F:/Documents/GitHub/AcmeTelecom/lib/fit/fitlibraryRunner-20070110.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
