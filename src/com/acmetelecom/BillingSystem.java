@@ -19,12 +19,12 @@ public class BillingSystem {
 	
     private List<CallEventInterface> callLog = new ArrayList<CallEventInterface>();
     
-    public void callInitiated(CallEventInterface mockCallStart) {
-    	callLog.add(mockCallStart);
+    public void callInitiated(CallEventInterface callStart) {
+    	callLog.add(callStart);
     }
     
-    public void callCompleted(CallEventInterface callend) {
-    	callLog.add(callend);
+    public void callCompleted(CallEventInterface callEnd) {
+    	callLog.add(callEnd);
     }
 
     public void createCustomerBills() {
@@ -35,7 +35,7 @@ public class BillingSystem {
         callLog.clear();
     }
 
-    private void createBillFor(Customer customer) {
+    public void createBillFor(Customer customer) {
         List<CallEventInterface> customerEvents = new ArrayList<CallEventInterface>();
         for (CallEventInterface callEvent : callLog) {
             if (callEvent.getCaller().getNumber().equals(customer.getPhoneNumber())) {
@@ -88,15 +88,12 @@ public class BillingSystem {
             	if (timeLeft < maxDurationInOffPeak) {
             		portionCost = new BigDecimal(timeLeft).multiply(tariff.offPeakRate());
             		timeLeft = 0;
-            	}
-            	else {
+            	} else {
             		portionCost = new BigDecimal(maxDurationInOffPeak).multiply(tariff.offPeakRate());
             		timeLeft -= maxDurationInOffPeak;
             		currentTime = currentTime.plusSeconds(maxDurationInOffPeak);
             	}
-            }
-            //If peak
-            else {
+            } else {
             	int maxDurationInPeak = peakPeriod.getSecondsUntilPeakEndTime(currentTime);
             	if (timeLeft < maxDurationInPeak) {
             		portionCost = new BigDecimal(timeLeft).multiply(tariff.peakRate());

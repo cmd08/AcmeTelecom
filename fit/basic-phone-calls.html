@@ -10,106 +10,27 @@
 
   <body><h1>Till Receipt for Basic Purchases</h1>
   
-  <table border="0" cellpadding="">
-      <tr>
-        <td colspan="3">Given the following price plans</td>
-      </tr>
-      <tr>
-        <td>Name</td>
-
-        <td>Peak Start</td>
-
-        <td>Peak End</td>
-        
-        <td>Peak Rate</td>
-        <td>Offpeak Rate</td>
-      </tr>
-      <tr>
-        <td>Consumer</td>
-
-        <td>19:00</td>
-
-        <td>21:00</td>
-        <td>1.00</td>
-        <td>0.50</td>
-      </tr>
-      <tr>
-        <td>Business</td>
-
-        <td>12:00</td>
-
-        <td>16:00</td>
-        
-        <td>1.90</td>
-        <td>0.10</td>
-      </tr>
-    </table>
-
-  <table border="0" cellpadding="">
-      <tr>
-        <td colspan="3">Given the following customers</td>
-      </tr>
-      <tr>
-        <td>Name</td>
-
-        <td>Number</td>
-
-        <td>Price Plan</td>
-      </tr>
-      <tr>
-        <td>Steve</td>
-
-        <td>01234567890</td>
-
-        <td>Consumer</td>
-      </tr>
-      <tr>
-        <td>Sally</td>
-
-        <td>02345678900</td>
-
-        <td>Consumer</td>
-      </tr>
-      <tr>
-        <td>Eve</td>
-
-        <td>03456789000</td>
-
-        <td>Business</td>
-      </tr>
-    </table>
-    
-    <p></p>
   
   <table border="0">
       <tr>
-        <td>The following call events happen</td>
+        <td>Given The Following Call Events</td>
       </tr>
 	  
 	  <tr>
-	    <td>Time</td>
 	    <td>Caller</td>
 	    <td>Callee</td>
-	    <td>Event</td>
+	    <td>StartTime</td>
+	    <td>EndTime</td>
 	  </tr>
-	  
-      <tr>
-        <td>18:30</td>
-        <td>19:00</td>
-        <td>Steve</td>
-        <td>Sally</td>
-      </tr>
-      <tr>
-        <td>19:00</td>
-        <td>19:30</td>
-        <td>Steve</td>
-        <td>Sally</td>
-      </tr>
+	  <tr>
+       <td>447722113434</td>
+       <td>447766511332</td>
+       <td>2012-01-01T19:23:00</td>
+       <td>2012-01-01T20:04:00</td>
+     </tr>
     </table>
     
-    <p>The receipt lists the product in the order that they were
-  scanned, except that all purchases of the same product are shown as a single
-  line on the receipt.</p>
+    <p>The bill shows one call costing X</p>
   
   <table bgcolor="" border="0">
       <tr>
@@ -123,13 +44,9 @@
 
       <tr class="billLine">
         <td>1</td>
-        <td>Call to 02345678900 at 18:30 - 19:00 £15.00</td>
+        <td>Call to 447766511332 at 18:30 - 19:00 £15.00</td>
       </tr>
 
-      <tr class="receiptLine">
-        <td>2</td>
-        <td>Call to 02345678900 at 18:30 - 19:00 £30.00</td>
-      </tr>
 
     </table>
     </body>
