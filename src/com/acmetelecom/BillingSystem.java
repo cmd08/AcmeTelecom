@@ -51,7 +51,11 @@ public class BillingSystem {
                 start = event;
             }
             if (event.getType() == CallType.CALL_END && start != null) {
-                calls.add(new Call(start, event));
+                try {
+                	calls.add(new Call(start, event));
+                } catch (Exception e){
+                	 // do something
+                }
                 start = null;
             }
         }

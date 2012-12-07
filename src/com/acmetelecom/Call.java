@@ -8,9 +8,13 @@ class Call {
     private CallEventInterface start;
     private CallEventInterface end;
 
-    public Call(CallEventInterface start, CallEventInterface end) {
-        this.start = start;
-        this.end = end;
+    public Call(CallEventInterface start, CallEventInterface end) throws Exception {
+    	if(end.getTime() < start.getTime()) {
+    		throw new Exception();
+    	} else {
+    		this.start = start;
+        	this.end = end;
+    	}
     }
 
     public CallParticipant callee() {
